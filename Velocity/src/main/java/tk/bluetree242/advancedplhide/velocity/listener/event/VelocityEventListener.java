@@ -80,6 +80,8 @@ public class VelocityEventListener {
     @Subscribe
     public void onCommands(PlayerAvailableCommandsEvent e) {
         RootNodeCommandCompleter node = new RootNodeCommandCompleter(e.getRootNode());
-        CompleterModifier.handleCompleter(node, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+        CompleterModifier.handleCompleter(node, core.getGroupForPlayer(e.getPlayer()), 
+				e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+				PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
     }
 }

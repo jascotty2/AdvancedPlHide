@@ -43,6 +43,7 @@ import tk.bluetree242.advancedplhide.utils.UsedMap;
 
 import java.util.Arrays;
 import java.util.UUID;
+import tk.bluetree242.advancedplhide.PlatformPlugin;
 
 public class SpigotPacketListener extends PacketAdapter {
 
@@ -72,12 +73,15 @@ public class SpigotPacketListener extends PacketAdapter {
             Suggestions suggestionsOrigin = matchModifier.read(0);
             if (!notCompleted.contains(" ")) {
                 SuggestionCommandCompleterList suggestions = new SuggestionCommandCompleterList(suggestionsOrigin);
-                CompleterModifier.handleCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission("plhide.whitelist-mode"));
+                CompleterModifier.handleCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
                 matchModifier.write(0, suggestions.export());
-            }
-            {
+            } else {
                 SuggestionSubCommandCompleterList suggestions = new SuggestionSubCommandCompleterList(suggestionsOrigin, notCompleted);
-                CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+                CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
                 if (suggestions.isCancelled()) e.setCancelled(true);
                 matchModifier.write(0, suggestions.export());
             }
@@ -87,11 +91,15 @@ public class SpigotPacketListener extends PacketAdapter {
             String[] suggestionsOrigin = matchModifier.read(0);
             if (!notCompleted.contains(" ")) {
                 StringCommandCompleterList suggestions = new StringCommandCompleterList(suggestionsOrigin);
-                CompleterModifier.handleCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+                CompleterModifier.handleCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
                 matchModifier.write(0, suggestions.export());
             } else {
                 StringSubCommandCompleterList suggestions = new StringSubCommandCompleterList(suggestionsOrigin, notCompleted);
-                CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+                CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
                 if (suggestions.isCancelled()) e.setCancelled(true);
                 matchModifier.write(0, suggestions.export());
             }
@@ -103,11 +111,15 @@ public class SpigotPacketListener extends PacketAdapter {
         RootCommandNode nodeOrigin = matchModifier.readSafely(0);
         if (nodeOrigin == null) {
             //modern game, 1.19+
-            core.getModernHandler().handle(e, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+            core.getModernHandler().handle(e, core.getGroupForPlayer(e.getPlayer()), 
+					e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+					PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
             return;
         }
         RootNodeCommandCompleter node = new RootNodeCommandCompleter(nodeOrigin);
-        CompleterModifier.handleCompleter(node, core.getGroupForPlayer(e.getPlayer()), e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+        CompleterModifier.handleCompleter(node, core.getGroupForPlayer(e.getPlayer()), 
+				e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+				PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
         matchModifier.write(0, node.export());
     }
 

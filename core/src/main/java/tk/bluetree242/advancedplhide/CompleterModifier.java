@@ -37,9 +37,13 @@ public class CompleterModifier {
         }
     }
 
-
     public static void handleCompleter(CommandCompleterList list, Group playerGroup, boolean whitelist) {
-        if (PlatformPlugin.get().getConfig().remove_plugin_prefix())
+		// NOTE: prefix override should be moved to Group, not individual
+		handleCompleter(list, playerGroup, whitelist, PlatformPlugin.get().getConfig().remove_plugin_prefix());
+	}
+
+    public static void handleCompleter(CommandCompleterList list, Group playerGroup, boolean whitelist, boolean removePrefixes) {
+        if (removePrefixes)
             removePluginPrefix(list);
 
         if (playerGroup != null) {
@@ -59,7 +63,7 @@ public class CompleterModifier {
                 (c.getName().startsWith("from:") && PlatformPlugin.get().getPluginForCommand(list.getName()) != null &&
                         PlatformPlugin.get().getPluginForCommand(list.getName()).equalsIgnoreCase(c.getName().replaceFirst("from:", ""))));
         if (((whitelist && !includedConfig) || (!whitelist && includedConfig))) {
-            System.out.println(includedConfig);
+            //System.out.println(includedConfig);
             list.removeAll(); //this command is not visible to player they might not see it's sub args
             return;
         }

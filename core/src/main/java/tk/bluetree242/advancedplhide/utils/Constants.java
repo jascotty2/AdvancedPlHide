@@ -28,6 +28,7 @@ public class Constants {
     public static final String DEFAULT_UP_TO_DATE = "&aYou are up to date";
     public static final String DEFAULT_BEHIND = "&cYou are {versions} Behind. Please Update ASAP. Download from {download}";
     public static final String WHITELIST_MODE_PERMISSION = "plhide.whitelist-mode";
+    public static final String BYPASS_PREFIX_CLEAR = "plhide.bypass.prefixes";
 
     public static String startupMessage() {
         return "" +

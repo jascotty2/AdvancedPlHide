@@ -38,6 +38,7 @@ import tk.bluetree242.advancedplhide.velocity.impl.completer.OfferCompleterList;
 import tk.bluetree242.advancedplhide.velocity.impl.subcompleter.OfferSubCommandCompleterList;
 
 import java.util.UUID;
+import tk.bluetree242.advancedplhide.PlatformPlugin;
 
 public class VelocityPacketListener extends AbstractPacketListener<TabCompleteResponse> {
     private final UsedMap<UUID, String> commandsWaiting = new UsedMap<>();
@@ -69,7 +70,9 @@ public class VelocityPacketListener extends AbstractPacketListener<TabCompleteRe
         if (legacy) {
             if (!notCompleted.contains(" ")) {
                 OfferCompleterList list = new OfferCompleterList(e.packet().getOffers(), true);
-                CompleterModifier.handleCompleter(list, core.getGroupForPlayer(player), player.hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+                CompleterModifier.handleCompleter(list, core.getGroupForPlayer(player), 
+						player.hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !player.hasPermission(Constants.BYPASS_PREFIX_CLEAR));
             } else {
                 OfferSubCommandCompleterList list = new OfferSubCommandCompleterList(e.packet().getOffers(), notCompleted);
                 CompleterModifier.handleSubCompleter(list, core.getGroupForPlayer(player), player.hasPermission(Constants.WHITELIST_MODE_PERMISSION));
@@ -78,7 +81,9 @@ public class VelocityPacketListener extends AbstractPacketListener<TabCompleteRe
         } else {
             if ((!notCompleted.contains(" "))) {
                 OfferCompleterList list = new OfferCompleterList(e.packet().getOffers(), false);
-                CompleterModifier.handleCompleter(list, core.getGroupForPlayer(player), player.hasPermission(Constants.WHITELIST_MODE_PERMISSION));
+                CompleterModifier.handleCompleter(list, core.getGroupForPlayer(player), 
+						player.hasPermission(Constants.WHITELIST_MODE_PERMISSION),
+						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !player.hasPermission(Constants.BYPASS_PREFIX_CLEAR));
             } else {
                 OfferSubCommandCompleterList list = new OfferSubCommandCompleterList(e.packet().getOffers(), notCompleted);
                 CompleterModifier.handleSubCompleter(list, core.getGroupForPlayer(player), player.hasPermission(Constants.WHITELIST_MODE_PERMISSION));
