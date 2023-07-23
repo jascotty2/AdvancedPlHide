@@ -27,5 +27,5 @@ import tk.bluetree242.advancedplhide.Group;
 
 public interface ModernHandler {
 
-    void handle(PacketEvent packetEvent, Group group, boolean whitelist);
+    void handle(PacketEvent packetEvent, Group group, boolean whitelist, boolean removePrefixes);
 }

@@ -37,10 +37,10 @@ public class CompleterModifier {
         }
     }
 
-    public static void handleCompleter(CommandCompleterList list, Group playerGroup, boolean whitelist) {
-		// NOTE: prefix override should be moved to Group, not individual
-		handleCompleter(list, playerGroup, whitelist, PlatformPlugin.get().getConfig().remove_plugin_prefix());
-	}
+//    public static void handleCompleter(CommandCompleterList list, Group playerGroup, boolean whitelist) {
+//		// NOTE: prefix override should be moved to Group, not individual
+//		handleCompleter(list, playerGroup, whitelist, PlatformPlugin.get().getConfig().remove_plugin_prefix());
+//	}
 
     public static void handleCompleter(CommandCompleterList list, Group playerGroup, boolean whitelist, boolean removePrefixes) {
         if (removePrefixes)

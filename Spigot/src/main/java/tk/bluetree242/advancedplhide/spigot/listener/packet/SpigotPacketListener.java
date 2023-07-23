@@ -80,8 +80,7 @@ public class SpigotPacketListener extends PacketAdapter {
             } else {
                 SuggestionSubCommandCompleterList suggestions = new SuggestionSubCommandCompleterList(suggestionsOrigin, notCompleted);
                 CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
-						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
-						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
                 if (suggestions.isCancelled()) e.setCancelled(true);
                 matchModifier.write(0, suggestions.export());
             }
@@ -98,8 +97,7 @@ public class SpigotPacketListener extends PacketAdapter {
             } else {
                 StringSubCommandCompleterList suggestions = new StringSubCommandCompleterList(suggestionsOrigin, notCompleted);
                 CompleterModifier.handleSubCompleter(suggestions, core.getGroupForPlayer(e.getPlayer()), 
-						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION),
-						PlatformPlugin.get().getConfig().remove_plugin_prefix() && !e.getPlayer().hasPermission(Constants.BYPASS_PREFIX_CLEAR));
+						e.getPlayer().hasPermission(Constants.WHITELIST_MODE_PERMISSION));
                 if (suggestions.isCancelled()) e.setCancelled(true);
                 matchModifier.write(0, suggestions.export());
             }
