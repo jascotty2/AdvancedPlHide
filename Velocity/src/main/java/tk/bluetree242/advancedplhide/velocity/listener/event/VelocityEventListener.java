@@ -62,20 +62,20 @@ public class VelocityEventListener {
         }
     }
 
-    @Subscribe
-    public void onCommandExecute(CommandExecuteEvent e) {
-        if (e.getCommandSource() instanceof ConsoleCommandSource) return;
-        String cmd = "/" + e.getCommand().split(" ")[0];
-        if (cmd.equalsIgnoreCase("/plugins") || cmd.equalsIgnoreCase("/pl") || cmd.equalsIgnoreCase("/bukkit:pl") || cmd.equalsIgnoreCase("/bukkit:plugins")) {
-            if (!e.getCommandSource().hasPermission("plhide.command.use")) {
-                if (!PlatformPlugin.get().getConfig().pl_message().isEmpty()) {
-                    Component response = LegacyComponentSerializer.legacy('&').deserialize(PlatformPlugin.get().getConfig().pl_message());
-                    e.getCommandSource().sendMessage(response);
-                }
-                e.setResult(CommandExecuteEvent.CommandResult.denied());
-            }
-        }
-    }
+//    @Subscribe
+//    public void onCommandExecute(CommandExecuteEvent e) {
+//        if (e.getCommandSource() instanceof ConsoleCommandSource) return;
+//        String cmd = "/" + e.getCommand().split(" ")[0];
+//        if (cmd.equalsIgnoreCase("/plugins") || cmd.equalsIgnoreCase("/pl") || cmd.equalsIgnoreCase("/bukkit:pl") || cmd.equalsIgnoreCase("/bukkit:plugins")) {
+//            if (!e.getCommandSource().hasPermission("plhide.command.use")) {
+//                if (!PlatformPlugin.get().getConfig().pl_message().isEmpty()) {
+//                    Component response = LegacyComponentSerializer.legacy('&').deserialize(PlatformPlugin.get().getConfig().pl_message());
+//                    e.getCommandSource().sendMessage(response);
+//                }
+//                e.setResult(CommandExecuteEvent.CommandResult.denied());
+//            }
+//        }
+//    }
 
     @Subscribe
     public void onCommands(PlayerAvailableCommandsEvent e) {

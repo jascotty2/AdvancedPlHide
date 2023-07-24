@@ -81,7 +81,7 @@ public class AdvancedPlHideBungee extends Plugin implements Listener {
         groups = new ArrayList<>();
         platformPlugin.getConfig().groups().forEach((name, val) -> {
             if (getGroup(name) == null)
-                groups.add(new Group(name, val.tabcomplete()));
+                groups.add(new Group(name, val.tabcomplete(), val.commands()));
             else {
                 getLogger().warning("Group " + name + " is repeated.");
             }

@@ -57,6 +57,8 @@ public interface Config {
 
     interface Group {
         @AnnotationBasedSorter.Order(10)
+        List<String> commands();
+        @AnnotationBasedSorter.Order(11)
         List<String> tabcomplete();
     }
 }

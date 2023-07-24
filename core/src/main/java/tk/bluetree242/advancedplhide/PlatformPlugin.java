@@ -84,12 +84,16 @@ public abstract class PlatformPlugin {
         for (Group group : groups) {
             tabcomplete.addAll(group.getOriginCompleters());
         }
+        List<String> commands = new ArrayList<>();
+        for (Group group : groups) {
+            commands.addAll(group.getExecuteCommands());
+        }
         List<String> names = new ArrayList<>();
         for (Group group : groups) {
             names.add(group.getName());
         }
         String name = "Merged Group: " + String.join(", ", names);
-        return new Group(name, tabcomplete);
+        return new Group(name, tabcomplete, commands);
     }
 
     public abstract String getVersionConfig();

@@ -36,11 +36,12 @@ import java.util.List;
  */
 public class Group {
     private final String name;
+	private final List<String> commands;
     private final List<CommandCompleter> completers;
     private final ConfSubCompleterList subCompleters;
     private final List<String> originCompleters;
 
-    public Group(String name, List<String> completers) {
+    public Group(String name, List<String> completers, List<String> commands) {
         this.originCompleters = completers;
         this.name = name;
         List<CommandCompleter> completersFinal = new ArrayList<>();
@@ -54,6 +55,7 @@ public class Group {
         }
         this.completers = completersFinal;
         this.subCompleters = subCompletersFinal;
+		this.commands = commands;
     }
 
     /**
@@ -84,7 +86,13 @@ public class Group {
     public List<CommandCompleter> getCompleteCommands() {
         return completers;
     }
-
+	
+    /**
+     * @return List of run commands for group, either used as whitelist or blacklist. The commands are considered not in a list. this will not contain any sub commands
+     */
+	public List<String> getExecuteCommands() {
+		return commands;
+	}
 
     @Override
     public String toString() {

@@ -30,6 +30,24 @@ public class DefaultGroupImpl implements Config.Group {
     }
 
     @Override
+    public List<String> commands() {
+        List<String> result = new ArrayList<>();
+        result.add("ver");
+        result.add("version");
+        result.add("plugins");
+        result.add("bukkit:*");
+        result.add("about");
+        result.add("?");
+        result.add("minecraft:?");
+        result.add("serverlistplus");
+        result.add("pl");
+        result.add("plugins");
+        result.add("example1");
+        result.add("example2");
+        return result;
+    }
+
+    @Override
     public List<String> tabcomplete() {
         List<String> result = new ArrayList<>();
         result.add("serverlistplus");

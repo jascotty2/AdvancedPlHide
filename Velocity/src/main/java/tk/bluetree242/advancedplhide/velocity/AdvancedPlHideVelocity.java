@@ -39,6 +39,7 @@ import tk.bluetree242.advancedplhide.impl.version.UpdateCheckResult;
 import tk.bluetree242.advancedplhide.utils.Constants;
 import tk.bluetree242.advancedplhide.velocity.listener.event.VelocityEventListener;
 import tk.bluetree242.advancedplhide.velocity.listener.packet.VelocityPacketListener;
+import tk.bluetree242.advancedplhide.velocity.listener.packet.VelocityCommandPacketListenerModern;
 
 import javax.inject.Inject;
 import java.io.*;
@@ -92,6 +93,7 @@ public class AdvancedPlHideVelocity extends PlatformPlugin {
         server.getCommandManager().register(meta, new AdvancedPlHideCommand(this));
         server.getEventManager().register(this, new VelocityEventListener(this));
         Protocolize.listenerProvider().registerListener(new VelocityPacketListener(this));
+        Protocolize.listenerProvider().registerListener(new VelocityCommandPacketListenerModern(this));
         metricsFactory.make(this, 13708);
         server.getConsoleCommandSource().sendMessage(LegacyComponentSerializer.legacy('&').deserialize(Constants.startupMessage()));
         server.getScheduler().buildTask(this, this::performStartUpdateCheck).schedule();
@@ -112,7 +114,7 @@ public class AdvancedPlHideVelocity extends PlatformPlugin {
         groups = new ArrayList<>();
         getConfig().groups().forEach((name, val) -> {
             if (getGroup(name) == null)
-                groups.add(new Group(name, val.tabcomplete()));
+                groups.add(new Group(name, val.tabcomplete(), val.commands()));
             else {
                 getLogger().warn("Group " + name + " is repeated.");
             }
